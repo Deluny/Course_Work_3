@@ -5,7 +5,7 @@ from src.dto import Operation
 
 def get_operations(filename) -> list[Operation]:
     """
-
+    Функция, получающая список операций из json файла
     :rtype: object
     """
     operations: list[Operation] = []
