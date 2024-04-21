@@ -8,6 +8,9 @@ class Payment:
 
     @classmethod
     def init_from_str(cls, payment):
+        '''
+        Функция, инициализирующая информацию по классу Payment
+        '''
         *name, number = payment.split(' ')
         return cls(' '.join(name), number)
 
@@ -16,6 +19,9 @@ class Payment:
 
     @staticmethod
     def split_card_number_by_blocks(card_number: str) -> str:
+        '''
+        Функция, разделяющая номер карты на блоки по 4 цифры
+        '''
         block_sizes = (4, 4, 4, 4)
         result = []
         for bs in block_sizes:
@@ -26,6 +32,9 @@ class Payment:
         return ' '.join(result)
 
     def safe(self) -> str:
+        '''
+        Функция, выводящая безопасный платёж
+        '''
         if self.name.lower() == 'счет':
             safe_number = self._get_safe_account()
         else:
@@ -34,9 +43,15 @@ class Payment:
         return f'{self.name} {safe_number}'
 
     def _get_safe_account(self) -> str:
+        '''
+        Функция, выводящая безопасный номер счёта
+        '''
         return '*' * 2 + self.number[-4:]
 
     def _get_safe_card_number(self) -> str:
+        '''
+        Функция, выводящая безопасный номер карты
+        '''
         start, middle, end = self.number[:6], self.number[6:-4], self.number[-4:]
         return start + '*' * len(middle) + end
 
@@ -79,6 +94,9 @@ class Operation:
 
     @classmethod
     def init_from_dict(cls, data):
+        '''
+        Функция, инициализирующая информацию по классу Operation
+        '''
         return cls(
             operation_id=int(data['id']),
             state=data['state'],
@@ -95,6 +113,9 @@ class Operation:
         )
 
     def safe(self) -> str:
+        '''
+        Функция, выводящая безопасный платёж (Operation)
+        '''
         lines = [
             f'{self.operation_date.strftime("%d.%m.%Y")} {self.description}',
         ]

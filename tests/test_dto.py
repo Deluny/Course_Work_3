@@ -6,28 +6,43 @@ from src.dto import Payment, Operation
 
 
 def test_init_payment_from_str():
+    '''
+    Тест для определения работоспособности функции init_from_str
+    '''
     payment = Payment.init_from_str('Visa Classic 6831982476737658')
     assert payment.name == 'Visa Classic'
     assert payment.number == '6831982476737658'
 
 
 def test_safe_payment_for_amount():
+    '''
+    Тест для определения работоспособности функции safe (для счёта)
+    '''
     payment = Payment(name='счет', number='64686473678894779589')
     assert payment.safe() == 'счет **9589'
 
 
 def test_safe_payment_for_card_number():
+    '''
+    Тест для определения работоспособности функции safe (для номера карты)
+    '''
     payment = Payment(name='MasterCard', number='7158300734726758')
     assert payment.safe() == 'MasterCard 7158 30** **** 6758'
 
 
 def test_split_card_number_by_blocks():
+    '''
+    Тест для определения работоспособности функции card_number_by_blocks
+    '''
     card_number = '7158300734726758'
     result = Payment.split_card_number_by_blocks(card_number)
     assert result == '7158 3007 3472 6758'
 
 
 def test_init_operation_from_dict(operation_data_with_from):
+    '''
+    Тест для определения работоспособности функции init_operation_from_dict
+    '''
     op = Operation.init_from_dict(operation_data_with_from)
     assert op.operation_id == 895315941
     assert op.state == 'EXECUTED'
@@ -43,6 +58,9 @@ def test_init_operation_from_dict(operation_data_with_from):
 
 
 def test_safe_operation_with_from(operation_data_with_from):
+    '''
+    Тест для определения работоспособности функции safe (для полноценной операции с отправителем)
+    '''
     operation = Operation.init_from_dict(operation_data_with_from)
     expected_result = (
         '19.08.2018 Перевод с карты на карту\n'
@@ -53,6 +71,9 @@ def test_safe_operation_with_from(operation_data_with_from):
 
 
 def test_safe_operation_without_from(operation_data_without_from):
+    '''
+    Тест для определения работоспособности функции safe (для полноценной операции без отправителя)
+    '''
     operation = Operation.init_from_dict(operation_data_without_from)
     expected_result = (
         '19.08.2018 Открытие вклада\n'

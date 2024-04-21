@@ -5,7 +5,7 @@ from src.dto import Operation
 
 def get_operations(filename) -> list[Operation]:
     """
-
+    Функция, получающая список операций из json файла
     :rtype: object
     """
     operations: list[Operation] = []
@@ -18,6 +18,9 @@ def get_operations(filename) -> list[Operation]:
 
 
 def filter_operations_by_state(*operations: Operation, state: str) -> list[Operation]:
+    '''
+    Функция, фильтрующая операции по признаку State
+    '''
     filtered_operations: list[Operation] = []
     for operation in operations:
         if operation.state == state:
@@ -26,4 +29,7 @@ def filter_operations_by_state(*operations: Operation, state: str) -> list[Opera
 
 
 def sort_operations_by_date(*operations):
+    '''
+    Функция, сортирующая операции по дате
+    '''
     return sorted(operations, key=lambda op: op.operation_date, reverse=True)
