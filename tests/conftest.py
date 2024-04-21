@@ -3,6 +3,9 @@ import pytest
 
 @pytest.fixture
 def operation_data_with_from():
+    '''
+    Функция, в которой содержится информация для тестирования (с отправителем)
+    '''
     return {
         "id": 895315941,
         "state": "EXECUTED",
@@ -22,6 +25,9 @@ def operation_data_with_from():
 
 @pytest.fixture
 def operation_data_without_from(operation_data_with_from):
+    '''
+    Функция, в которой содержится информация для тестирования (без отправителя)
+    '''
     operation_data_with_from['description'] = 'Открытие вклада'
     del operation_data_with_from['from']
     return operation_data_with_from
